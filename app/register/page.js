@@ -224,43 +224,40 @@ const RegisterPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
 
-    console.log("Submitted Data:", formData);
-  };
+  console.log("Submitted Data:", formData);
 
-  useEffect(() => {
-    const postData = async () => {
-      try {
-        const response = await fetch(
-          "https://ca535besvd.execute-api.us-east-1.amazonaws.com/register",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
-        const data = await response.json();
-        console.log("Response Data:", data);
-        if (response.ok) {
-          console.log("hello world");
-        } else {
-          console.log("hello worl");
-        }
-      } catch (error) {
-        console.error("Error posting data:", error);
+  try {
+    const response = await fetch(
+      "https://ca535besvd.execute-api.us-east-1.amazonaws.com/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       }
-    };
+    );
+    const data = await response.json();
+    console.log("Response Data:", data);
+    if (response.ok) {
+      alert("Registration successful!");
+      // Optionally reset form or redirect
+    } else {
+      alert("Registration failed: " + (data.error || "Unknown error"));
+    }
+  } catch (error) {
+    console.error("Error posting data:", error);
+    alert("Failed to register, please try again.");
+  }
+};
 
-    // postData();
-  }, []);
 
   return (
     <Container className="my-5">
