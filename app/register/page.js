@@ -259,7 +259,7 @@ const RegisterPage = () => {
       }
     };
 
-    postData();
+    // postData();
   }, []);
 
   return (
