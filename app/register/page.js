@@ -20,7 +20,6 @@ const RegisterPage = () => {
   });
   // formData.Custid = "CstidDta" + Math.floor(Math.random() * 1000000).toString();
 
-
   const countries = [
     "Afghanistan",
     "Albania",
@@ -235,23 +234,25 @@ const RegisterPage = () => {
     console.log("Submitted Data:", formData);
   };
 
-
   useEffect(() => {
     const postData = async () => {
       try {
-        const response = await fetch('https://ca535besvd.execute-api.us-east-1.amazonaws.com/register',{
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        })
+        const response = await fetch(
+          "https://ca535besvd.execute-api.us-east-1.amazonaws.com/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
         const data = await response.json();
         console.log("Response Data:", data);
         if (response.ok) {
-          console.log("hello world")
+          console.log("hello world");
         } else {
-          console.log("hello worl")
+          console.log("hello worl");
         }
       } catch (error) {
         console.error("Error posting data:", error);
@@ -346,12 +347,12 @@ const RegisterPage = () => {
               </Col>
             </Row>
 
-            <Form.Group className="mb-3" controlId="email">
-              <Form.Label>Email address</Form.Label>
+            <Form.Group className="mb-3" controlId="phone">
+              <Form.Label>Phone Number</Form.Label>
               <Form.Control
-                type="phone"
+                type="tel" // better than "phone"
                 placeholder="Enter your phone number"
-                name="phone number"
+                name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 required
