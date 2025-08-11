@@ -8,7 +8,7 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     name: "",
-    lastName: "",
+    lastname: "",
     username: "",
     email: "",
     password: "",
@@ -281,13 +281,13 @@ const RegisterPage = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="lastName">
+            <Form.Group className="mb-3" controlId="lastname">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter your last name"
-                name="lastName"
-                value={formData.lastName}
+                name="lastname"
+                value={formData.lastname}
                 onChange={handleChange}
                 required
               />
