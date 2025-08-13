@@ -23,6 +23,21 @@ console.log("Submitted Data:", formData);
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+
+  if (!formData.name || !formData.username || !formData.email || !formData.password) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  const payload = {
+    name: formData.name,
+    email: formData.email,
+    username: formData.username,
+    password: formData.password,
+  };
+
+  console.log("Payload sent:", payload);
+
   try {
     const response = await fetch(
       "https://ca535besvd.execute-api.us-east-1.amazonaws.com/register",
@@ -31,15 +46,18 @@ const handleSubmit = async (e) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       }
     );
+
+    console.log("Raw response:", response);
+
     const data = await response.json();
     console.log("Response Data:", data);
+
     if (response.ok) {
       alert("Registration successful!");
-      router.push('/Home');  // Redirect to login page after successful registration
-      // Optionally reset form or redirect
+      router.push('/Home');
     } else {
       alert("Registration failed: " + (data.error || "Unknown error"));
     }
