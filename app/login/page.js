@@ -6,14 +6,7 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
 const RegisterPage = () => {
   const router = useRouter();
-
-  const [formData, setFormData] = useState({
-    name: "",
-    username: "",
-    email: "",
-    password: "",
-    phone: "",
-  });
+  const [formData, setFormData] = useState({ name: "", username: "", email: "", password: "", phone: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,119 +16,56 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    for (const [key, value] of Object.entries(formData)) {
-      if (!value.trim()) {
-        alert(`Please fill in the ${key} field`);
+    // Frontend validation
+    for (const [k, v] of Object.entries(formData)) {
+      if (!v.trim()) {
+        alert(`Please fill in the ${k}`);
         return;
       }
     }
 
     try {
-      const response = await fetch("https://ca535besvd.execute-api.us-east-1.amazonaws.com/register", {
+      const res = await fetch("https://ca535besvd.execute-api.us-east-1.amazonaws.com/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("Registration successful!");
+      const data = await res.json();
+      if (res.ok) {
+        alert("Registration successful");
         router.push("/home");
       } else {
-        alert("Registration failed: " + (data.error || "Unknown error"));
+        alert(`Registration failed: ${data.error || "Unknown error"}`);
       }
-    } catch (error) {
-      console.error("❌ Error posting data:", error);
+    } catch (err) {
+      console.error("Error:", err);
       alert("Failed to register. Please try again.");
     }
-  };
-
-  const goToLogin = () => {
-    router.push("/login");
   };
 
   return (
     <Container className="my-5">
       <Row className="justify-content-md-center">
         <Col md={8} lg={6}>
-          <h2 className="mb-4 text-center">Register</h2>
+          <h2 className="text-center mb-4">Register</h2>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                placeholder="Enter your name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                name="username"
-                placeholder="Choose a username"
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Enter password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Phone</Form.Label>
-              <Form.Control
-                type="tel"
-                name="phone"
-                placeholder="Enter phone number"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-
+            {["name", "username", "email", "password", "phone"].map((field) => (
+              <Form.Group className="mb-3" key={field}>
+                <Form.Label>{field.charAt(0).toUpperCase() + field.slice(1)}</Form.Label>
+                <Form.Control
+                  type={field === "password" ? "password" : field === "email" ? "email" : "text"}
+                  name={field}
+                  placeholder={`Enter your ${field}`}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            ))}
             <div className="d-grid">
-              <Button variant="primary" type="submit">
-                Register
-              </Button>
-            </div>
-
-            <div className="mt-3 text-center">
-              <p>
-                Already have an account?{" "}
-                <button type="button" className="btn btn-link" onClick={goToLogin}>
-                  Login
-                </button>
-              </p>
+              <Button variant="primary" type="submit">Register</Button>
+              <Button variant="link" className="mt-3" onClick={() => router.push("/login")}>Login</Button>
             </div>
           </Form>
         </Col>
