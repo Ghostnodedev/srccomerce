@@ -34,7 +34,7 @@ const RegisterPage = () => {
       const data = await res.json();
       if (res.ok) {
         alert("Registration successful");
-        router.push("/home");
+        // router.push("/");
       } else {
         alert(`Registration failed: ${data.error || "Unknown error"}`);
       }
