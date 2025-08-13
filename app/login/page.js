@@ -33,7 +33,7 @@ const RegisterPage = () => {
 
     try {
       const response = await fetch(
-        "https://ca535besvd.execute-api.us-east-1.amazonaws.com/register",
+        " https://ca535besvd.execute-api.us-east-1.amazonaws.com/login",
         {
           method: "POST",
           headers: {
