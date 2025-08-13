@@ -23,7 +23,6 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Frontend validation
     for (const [key, value] of Object.entries(formData)) {
       if (!value.trim()) {
         alert(`Please fill in the ${key} field`);
@@ -32,27 +31,24 @@ const RegisterPage = () => {
     }
 
     try {
-      const response = await fetch(
-        " https://ca535besvd.execute-api.us-east-1.amazonaws.com/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch("https://ca535besvd.execute-api.us-east-1.amazonaws.com/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
 
       if (response.ok) {
         alert("Registration successful!");
-        router.push("/home"); // Redirect after success
+        router.push("/home");
       } else {
         alert("Registration failed: " + (data.error || "Unknown error"));
       }
     } catch (error) {
-      console.error("Error posting data:", error);
+      console.error("❌ Error posting data:", error);
       alert("Failed to register. Please try again.");
     }
   };
@@ -136,11 +132,7 @@ const RegisterPage = () => {
             <div className="mt-3 text-center">
               <p>
                 Already have an account?{" "}
-                <button
-                  type="button"
-                  className="btn btn-link"
-                  onClick={goToLogin}
-                >
+                <button type="button" className="btn btn-link" onClick={goToLogin}>
                   Login
                 </button>
               </p>
