@@ -13,7 +13,6 @@ function CustomNavbar() {
   return (
 <Navbar bg="light" expand="lg" fixed="top" className="shadow-sm">
       <Container>
-        {/* Logo on the left */}
         <Navbar.Brand href="/">
           <img
             src="/next.svg"

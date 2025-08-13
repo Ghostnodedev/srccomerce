@@ -1,11 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-"use client";
+ "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { useRouter } from 'next/navigation'
 import React, { useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
 const RegisterPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     lastname: "",
@@ -258,6 +258,10 @@ const handleSubmit = async (e) => {
   }
 };
 
+const login = ()=>{
+  router.push('/login');
+}
+
 
   return (
     <Container className="my-5">
@@ -394,6 +398,11 @@ const handleSubmit = async (e) => {
               <Button variant="primary" type="submit">
                 Register
               </Button>
+            </div>
+            <div className="mt-3 text-center">
+              <p>
+                Already have an account? <button className="btn btn-link" onClick={login}>Login</button>
+              </p>
             </div>
           </Form>
         </Col>

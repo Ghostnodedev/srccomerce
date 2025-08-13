@@ -1,0 +1,14 @@
+body {
+  padding-top: 56px; /* default Bootstrap fixed-top height */
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 70px; /* taller navbar on larger screens */
+  }
+}
+
+.navbar {
+  top: 0;
+  z-index: 1020; 
+}
