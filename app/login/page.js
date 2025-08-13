@@ -1,6 +1,6 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
@@ -23,7 +23,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ Validate frontend before sending
+    // Frontend validation
     for (const [key, value] of Object.entries(formData)) {
       if (!value.trim()) {
         alert(`Please fill in the ${key} field`);
@@ -31,35 +31,34 @@ const RegisterPage = () => {
       }
     }
 
-    console.log("Submitted Data:", formData);
-
     try {
-      const response = await fetch("https://ca535besvd.execute-api.us-east-1.amazonaws.com/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://ca535besvd.execute-api.us-east-1.amazonaws.com/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
-      console.log("Response Status:", response.status);
-      console.log("Response Data:", data);
 
       if (response.ok) {
         alert("Registration successful!");
-        router.push("/home"); // change as needed
+        router.push("/home"); // Redirect after success
       } else {
         alert("Registration failed: " + (data.error || "Unknown error"));
       }
     } catch (error) {
-      console.error("❌ Error posting data:", error);
+      console.error("Error posting data:", error);
       alert("Failed to register. Please try again.");
     }
   };
 
   const goToLogin = () => {
-    router.push("/login"); // change as needed
+    router.push("/login");
   };
 
   return (
@@ -137,7 +136,11 @@ const RegisterPage = () => {
             <div className="mt-3 text-center">
               <p>
                 Already have an account?{" "}
-                <button type="button" className="btn btn-link" onClick={goToLogin}>
+                <button
+                  type="button"
+                  className="btn btn-link"
+                  onClick={goToLogin}
+                >
                   Login
                 </button>
               </p>
