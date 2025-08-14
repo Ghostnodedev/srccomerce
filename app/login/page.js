@@ -33,10 +33,10 @@ const RegisterPage = () => {
 
       const data = await res.json();
       if (res.ok) {
-        alert("Registration successful");
-        // router.push("/");
+        alert("Login successful");
+        router.push("/");
       } else {
-        alert(`Registration failed: ${data.error || "Unknown error"}`);
+        alert(`Login failed: ${data.error || "Unknown error"}`);
       }
     } catch (err) {
       console.error("Error:", err);
@@ -48,7 +48,7 @@ const RegisterPage = () => {
     <Container className="my-5">
       <Row className="justify-content-md-center">
         <Col md={8} lg={6}>
-          <h2 className="text-center mb-4">Register</h2>
+          <h2 className="text-center mb-4">Login</h2>
           <Form onSubmit={handleSubmit}>
             {["name", "username", "email", "password", "phone"].map((field) => (
               <Form.Group className="mb-3" key={field}>
@@ -64,7 +64,7 @@ const RegisterPage = () => {
               </Form.Group>
             ))}
             <div className="d-grid">
-              <Button variant="primary" type="submit">Register</Button>
+              <Button variant="primary" type="submit">Login</Button>
               <Button variant="link" className="mt-3" onClick={() => router.push("/login")}>Login</Button>
             </div>
           </Form>
