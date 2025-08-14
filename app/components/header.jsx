@@ -1,43 +1,35 @@
 'use client';
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
-function CustomNavbar() {
+export default function CustomNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLoginLogout = () => {
-    setIsLoggedIn(prev => !prev);
-  };
-
   return (
-<Navbar bg="light" expand="lg" fixed="top" className="shadow-sm">
+    <Navbar bg="light" expand="lg" fixed="top" className="shadow-sm">
       <Container>
-        <Navbar.Brand href="/">
+        <Navbar.Brand href="/" className="fw-bold text-primary">
           <img
             src="/next.svg"
             width="40"
             height="40"
-            className="d-inline-block align-top"
+            className="d-inline-block align-top me-2"
             alt="Logo"
-          />{' '}
+          />
           MyApp
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbar-nav" />
-
         <Navbar.Collapse id="navbar-nav">
-          {/* Right aligned content */}
           <Nav className="ms-auto align-items-center gap-3">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
-            <Nav.Link href="/products">Products</Nav.Link>
-            <Nav.Link href="/services">Services</Nav.Link>
-            <Nav.Link href="/contact">Contact Us</Nav.Link>
+            <Nav.Link href="/" className="fw-semibold">Home</Nav.Link>
+            <Nav.Link href="/products" className="fw-semibold">Products</Nav.Link>
+            <Nav.Link href="/services" className="fw-semibold">Services</Nav.Link>
+            <Nav.Link href="/contact" className="fw-semibold">Contact</Nav.Link>
 
             <Button
-              variant={isLoggedIn ? 'outline-danger' : 'outline-primary'}
-              onClick={handleLoginLogout}
+              variant={isLoggedIn ? 'outline-danger' : 'primary'}
+              onClick={() => setIsLoggedIn(!isLoggedIn)}
               size="sm"
             >
               {isLoggedIn ? 'Logout' : 'Login'}
@@ -48,5 +40,3 @@ function CustomNavbar() {
     </Navbar>
   );
 }
-
-export default CustomNavbar;
